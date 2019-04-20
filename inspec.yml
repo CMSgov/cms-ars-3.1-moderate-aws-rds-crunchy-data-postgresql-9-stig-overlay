@@ -13,8 +13,8 @@ supports:
 inspec_version: "~> 3.0"
 
 depends:
-- name: aws-rds-crunchy-data-postgresql-9-stig-overlay
-  git: https://github.com/mitre/aws-rds-crunchy-data-postgresql-9-stig-overlay.git
+- name: aws-rds-crunchy-data-postgresql-9-stig-baseline
+  git: https://github.com/mitre/aws-rds-crunchy-data-postgresql-9-stig-baseline.git
   branch: master
 
 attributes:
