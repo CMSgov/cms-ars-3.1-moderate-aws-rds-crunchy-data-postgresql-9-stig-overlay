@@ -3,7 +3,7 @@
 include_controls 'aws-rds-crunchy-data-postgresql-9-stig-baseline' do
   control 'V-72857' do
     desc 'The CMS standard for authentication is CMS-approved 
-         PKI certificates.
+         PKI certificates. 
 
          Authentication based on User ID and Password may be 
          used only when it is not possible to employ a PKI 
