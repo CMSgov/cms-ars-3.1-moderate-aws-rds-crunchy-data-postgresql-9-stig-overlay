@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-include_controls 'aws-rds-crunchy-data-postgresql-9-stig-baseline' do
+include_controls 'pgstigcheck-inspec' do
   control 'V-72857' do
     desc 'The CMS standard for authentication is CMS-approved 
          PKI certificates. 
