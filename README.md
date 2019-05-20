@@ -80,7 +80,7 @@ mkdir profiles
 cd profiles
 git clone https://github.com/mitre/aws-rds-crunchy-data-postgresql-9-stig-baseline.git
 git clone https://github.cms.gov/ispg/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay.git
-cd cms-ars-3.1-moderate-crunchy-data-postgresql-9-stig-overlay
+cd cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
 bundle install
 cd ..
 inspec exec cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --attrs=<path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
@@ -91,11 +91,11 @@ For every successive run, follow these steps to always have the latest version o
 ```
 cd profiles/aws-rds-crunchy-data-postgresql-9-stig-baseline.git
 git pull
-cd ../cms-ars-3.1-moderate-crunchy-data-postgresql-9-stig-overlay
+cd ../cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
 git pull
 bundle install
 cd ..
-inspec exec cms-ars-3.1-moderate-crunchy-data-postgresql-9-stig-overlay --attrs=<path_to_your_attributes_file/name_of_your_attributes_file.yml> --target=ssh://<your_target_host_name_or_ip_address> --user=<target_account_with_administrative_privileges> --password=<password_for_target_account> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+inspec exec cms-ars-3.1-moderate-crunchy-data-postgresql-9-stig-overlay --attrs=<path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ## Viewing the JSON Results
