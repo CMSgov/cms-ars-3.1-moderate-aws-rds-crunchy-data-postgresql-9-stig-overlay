@@ -10,7 +10,6 @@ summary: .
 version: 0.1.0
 supports:
   platform: os
-inspec_version: "~> 3.0"
 
 depends:
 - name: aws-rds-crunchy-data-postgresql-9-stig-baseline
