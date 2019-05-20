@@ -107,8 +107,6 @@ The JSON InSpec results file may also be loaded into a __[full heimdall server](
 ## Getting Help
 To report a bug or feature request, please open an [issue](https://github.cms.gov/ispg/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/issues/new).
 
-/edit/master/README.md
-
 ## Authors
 * Eugene Aronne
 * Danny Haynes
