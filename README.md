@@ -21,7 +21,7 @@ pg_dba_password: 'password'
 pg_user: ''
 pg_user_password: ''
 
-pg_host: 'rds.cjwekmnpixnv.us-east-2.rds.amazonaws.com'
+pg_host: ''
 pg_port: '5432'
 
 pg_db: 'test'
