@@ -96,7 +96,7 @@ attributes:
     default: ''
 
   - name: pg_user_defined_conf
-    description: '(e.g., ''/var/lib/pgsql/9.5/data/stig-postgresql.conf'')'.
+    description: 'User defined configuration file for the database (e.g., ''/var/lib/pgsql/9.5/data/stig-postgresql.conf'')'.
     type: string
     default: ''
 
