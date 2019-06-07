@@ -85,6 +85,36 @@ attributes:
     type: numeric
     default: 9.5
 
+  - name: pg_data_dir
+    description: 'Data directory for database (e.g., ''/var/lib/pgsql/9.5/data'')'. 
+    type: string
+    default: ''
+
+  - name: pg_conf_file
+    description: 'Configuration file for the database (''/var/lib/pgsql/9.5/data/postgresql.conf'').'
+    type: string
+    default: ''
+
+  - name: pg_user_defined_conf
+    description: '(e.g., ''/var/lib/pgsql/9.5/data/stig-postgresql.conf'')'.
+    type: string
+    default: ''
+
+  - name: pg_hba_conf_file
+    description: 'Configuration file to enable client authentication (e.g., ''/var/lib/pgsql/9.5/data/pg_hba.conf'')'.
+    type: string
+    default: ''
+
+  - name: pg_ident_conf_file
+    description: 'Configuration file that maps operating system usernames and database usernames (e.g., ''/var/lib/pgsql/9.5/data/pg_ident.conf'').'
+    type: string
+    default: ''
+
+  - name: pg_shared_dirs
+    description: 'List of shared directories (e.g., pg_shared_dirs: [''/usr/pgsql-9.5'', ''/usr/pgsql-9.5/bin'', ''/usr/pgsql-9.5/lib'', ''/usr/pgsql-9.5/share'']).'
+    type: array
+    default: []
+
   - name: pg_conf_mode
     description: 'Database configuration mode'
     type: numeric
