@@ -166,7 +166,7 @@ attributes:
     default: []
 
   - name: pg_max_connections
-    description: 'Postgres max number of connections allowed (e.g., '100').'
+    description: 'Postgres max number of connections allowed (e.g., 100).'
     type: numeric
     default: 0
 
