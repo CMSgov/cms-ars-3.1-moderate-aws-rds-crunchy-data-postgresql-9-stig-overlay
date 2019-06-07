@@ -96,12 +96,12 @@ attributes:
     default: ''
 
   - name: pg_user_defined_conf
-    description: 'User defined configuration file for the database (e.g., ''/var/lib/pgsql/9.5/data/stig-postgresql.conf'')'.
+    description: 'User defined configuration file for the database (e.g., ''/var/lib/pgsql/9.5/data/stig-postgresql.conf'').'
     type: string
     default: ''
 
   - name: pg_hba_conf_file
-    description: 'Configuration file to enable client authentication (e.g., ''/var/lib/pgsql/9.5/data/pg_hba.conf'')'.
+    description: 'Configuration file to enable client authentication (e.g., ''/var/lib/pgsql/9.5/data/pg_hba.conf'').'
     type: string
     default: ''
 
