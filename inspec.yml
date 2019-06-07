@@ -86,7 +86,7 @@ attributes:
     default: 9.5
 
   - name: pg_data_dir
-    description: 'Data directory for database (e.g., ''/var/lib/pgsql/9.5/data'')'. 
+    description: 'Data directory for database (e.g., ''/var/lib/pgsql/9.5/data'').' 
     type: string
     default: ''
 
