@@ -11,8 +11,7 @@ version: 0.1.0
 
 depends:
 - name: aws-rds-crunchy-data-postgresql-9-stig-baseline
-  git: https://github.com/mitre/aws-rds-crunchy-data-postgresql-9-stig-baseline.git
-  branch: master
+  git: ../aws-rds-crunchy-data-postgresql-9-stig-baseline
 
 attributes:
   - name: pg_owner
