@@ -8,152 +8,171 @@ __For the best security of the runner, always install on the runner the _latest 
 
 The latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
 
-Git is required to download the latest InSpec profiles using the instructions below. Git can be downloaded from the [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) site. 
+Git is required to download the latest InSpec profiles using the instructions below. Git can be downloaded from the [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) site.
 
-The following attributes must be configured in an attributes file for the profile to run correctly. More information about InSpec attributes can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
+## Tailoring to Your Environment
+The following inputs must be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
 ```
-# description: 'Postgres OS user (e.g., 'postgres').'
+# Description: 'Postgres OS user (e.g., 'postgres').'
 pg_owner: 'postgres'
 
-# description: 'Postgres OS group (e.g., 'postgres').'
+# Description: 'Postgres OS group (e.g., 'postgres').'
 pg_group: 'postgres'
 
-# description: 'Postgres OS user password'
+# Description: 'Postgres OS user password'
 pg_owner_password: ''
 
-# description: 'Postgres database admin user (e.g., 'root').'
+# Description: 'Postgres database admin user (e.g., 'root').'
 pg_dba: 'root'
 
-# description: 'Postgres database admin password ('password').'
+# Description: 'Postgres database admin password ('password').'
 pg_dba_password: 'password'
 
-# description: 'Postgres normal user'
+# Description: 'Postgres normal user'
 pg_user: ''
 
-# description: 'Postgres normal user password'
+# Description: 'Postgres normal user password'
 pg_user_password: ''
 
-# description: 'Postgres database hostname'
+# Description: 'Postgres database hostname'
 pg_host: ''
 
-# description: 'Postgres database port'
+# Description: 'Postgres database port'
 pg_port: '5432'
 
-# description: 'Postgres database name ('test')'
+# Description: 'Postgres database name ('test')'
 pg_db: 'test'
 
-# description: 'Postgres database table name'
+# Description: 'Postgres database table name'
 pg_table: ''
 
-# description: 'User on remote database server'
+# Description: 'User on remote database server'
 login_user: ''
 
-# description: 'Database host ip'
+# Description: 'Database host ip'
 login_host: ''
 
-# description: 'Database version'
+# Description: 'Database version'
 pg_version: '9.5'
 
-# description: 'Data directory for database (e.g., '/var/lib/pgsql/9.5/data')'. 
+# Description: 'Data directory for database (e.g., '/var/lib/pgsql/9.5/data')'. 
 pg_data_dir: ''
 
-# description: 'Configuration file for the database ('/var/lib/pgsql/9.5/data/postgresql.conf').'
+# Description: 'Configuration file for the database ('/var/lib/pgsql/9.5/data/postgresql.conf').'
 pg_conf_file: ''
 
-# description: 'User defined configuration file for the database (e.g., '/var/lib/pgsql/9.5/data/stig-postgresql.conf')'.
+# Description: 'User defined configuration file for the database (e.g., '/var/lib/pgsql/9.5/data/stig-postgresql.conf')'.
 pg_user_defined_conf: ''
 
-# description: 'Configuration file to enable client authentication (e.g., '/var/lib/pgsql/9.5/data/pg_hba.conf')'.
+# Description: 'Configuration file to enable client authentication (e.g., '/var/lib/pgsql/9.5/data/pg_hba.conf')'.
 pg_hba_conf_file: ''
 
-# description: 'Configuration file that maps operating system usernames and database usernames (e.g., '/var/lib/pgsql/9.5/data/pg_ident.conf').'
+# Description: 'Configuration file that maps operating system usernames and database usernames (e.g., '/var/lib/pgsql/9.5/data/pg_ident.conf').'
 pg_ident_conf_file: ''
 
-# description: 'List of shared directories (e.g., pg_shared_dirs: ['/usr/pgsql-9.5', '/usr/pgsql-9.5/bin', '/usr/pgsql-9.5/lib', '/usr/pgsql-9.5/share']).'
+# Description: 'List of shared directories (e.g., pg_shared_dirs: ['/usr/pgsql-9.5', '/usr/pgsql-9.5/bin', '/usr/pgsql-9.5/lib', '/usr/pgsql-9.5/share']).'
 pg_shared_dirs: []
 
-# description: 'Database configuration mode (e.g., 0600)'
+# Description: 'Database configuration mode (e.g., 0600)'
 pg_conf_mode: '0600'
 
-# description: 'Postgres ssl setting (e.g., 'on').'
+# Description: 'Postgres ssl setting (e.g., 'on').'
 pg_ssl: ''
 
-# description: 'Postgres log destination (e.g., 'syslog').'
+# Description: 'Postgres log destination (e.g., 'syslog').'
 pg_log_dest: ''
 
-# description: 'Postgres syslog facility (e.g., ['local0']).'
+# Description: 'Postgres syslog facility (e.g., ['local0']).'
 pg_syslog_facility: []
 
-# description: 'Postgres syslog owner (e.g., 'postgres').'
+# Description: 'Postgres syslog owner (e.g., 'postgres').'
 pg_syslog_owner: ''
 
-# description: 'Postgres audit log items (e.g., ['ddl','role','read','write']).'
+# Description: 'Postgres audit log items (e.g., ['ddl','role','read','write']).'
 pgaudit_log_items: []
 
-# description: 'Postgres audit log line items (e.g. ['%m','%u','%c']).'
+# Description: 'Postgres audit log line items (e.g. ['%m','%u','%c']).'
 pgaudit_log_line_items: []
 
-# description: 'Postgres super users (e.g., ['postgres']).'
+# Description: 'Postgres super users (e.g., ['postgres']).'
 pg_superusers: []
 
-# description: 'Postgres users'
+# Description: 'Postgres users'
 pg_users: []
 
-# description: 'Postgres replicas (e.g. ['192.168.1.3/32']).'
+# Description: 'Postgres replicas (e.g. ['192.168.1.3/32']).'
 pg_replicas: []
 
-# description: 'Postgres max number of connections allowed (e.g., 100).'
+# Description: 'Postgres max number of connections allowed (e.g., 100).'
 pg_max_connections: 0
 
-# description: 'Postgres timezone (e.g., 'UTC').'
+# Description: 'Postgres timezone (e.g., 'UTC').'
 pg_timezone: ''
 ```
 
-## Running This Overlay
+## Running This Overlay Directly from Github
+
+```
+# How to run
+inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/archive/master.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+```
+
+### Different Run Options
+
+  [Full exec options](https://docs.chef.io/inspec/cli/#options-3)
+
+## Running This Overlay from a local Archive copy 
+
+If your runner is not always expected to have direct access to GitHub, use the following steps to create an archive bundle of this overlay and all of its dependent tests:
+
+(Git is required to clone the InSpec profile using the instructions below. Git can be downloaded from the [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) site.)
+
 When the __"runner"__ host uses this profile overlay for the first time, follow these steps: 
 
 ```
 mkdir profiles
 cd profiles
-git clone https://github.com/mitre/aws-rds-crunchy-data-postgresql-9-stig-baseline.git
 git clone https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay.git
-cd cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
-bundle install
-cd ..
-inspec exec cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --attrs=<path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+inspec archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
+inspec exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:
 
 ```
-cd profiles/aws-rds-crunchy-data-postgresql-9-stig-baseline.git
+cd cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
 git pull
-cd ../cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
-git pull
-bundle install
 cd ..
-inspec exec cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --attrs=<path_to_your_attributes_file/name_of_your_attributes_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+inspec archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --overwrite
+inspec exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
-## Viewing the JSON Results
+## Using Heimdall for Viewing the JSON Results
 
-The JSON results output file can be loaded into __[heimdall-lite](https://mitre.github.io/heimdall-lite/)__ for a user-interactive, graphical view of the InSpec results. 
+The JSON results output file can be loaded into __[heimdall-lite](https://heimdall-lite.mitre.org/)__ for a user-interactive, graphical view of the InSpec results. 
 
 The JSON InSpec results file may also be loaded into a __[full heimdall server](https://github.com/mitre/heimdall)__, allowing for additional functionality such as to store and compare multiple profile runs.
 
-## Getting Help
-To report a bug or feature request, please open an [issue](https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/issues/new).
-
 ## Authors
-* Eugene Aronne
-* Danny Haynes
+* Eugene Aronne - [ejaronne](https://github.com/ejaronne)
+* Danny Haynes - [djhaynes](https://github.com/djhaynes)
 
 ## Special Thanks
-* Aaron Lippold
+* Aaron Lippold - [aaronlippold](https://github.com/aaronlippold)
 
-## License
-* This project is licensed under the terms of the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0).
+## Contributing and Getting Help
+To report a bug or feature request, please open an [issue](https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/issues/new).
+
+### NOTICE
+
+© 2018-2020 The MITRE Corporation.
+
+Approved for Public Release; Distribution Unlimited. Case Number 18-3678.
+
+### NOTICE 
+
+MITRE hereby grants express written permission to use, reproduce, distribute, modify, and otherwise leverage this software to the extent permitted by the licensed terms provided in the LICENSE.md file included with this project.
 
 ### NOTICE  
 
@@ -162,3 +181,6 @@ This software was produced for the U. S. Government under Contract Number HHSM-5
 No other use other than that granted to the U. S. Government, or to those acting on behalf of the U. S. Government under that Clause is authorized without the express written permission of The MITRE Corporation.
 
 For further information, please contact The MITRE Corporation, Contracts Management Office, 7515 Colshire Drive, McLean, VA  22102-7539, (703) 983-6000.
+
+### NOTICE 
+DISA STIGs are published by DISA IASE, see: https://iase.disa.mil/Pages/privacy_policy.aspx
