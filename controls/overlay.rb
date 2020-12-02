@@ -23,7 +23,7 @@ include_controls 'pgstigcheck-inspec' do
   end
 
   control 'V-72863' do
-    impact 'none'
+    impact 0.0
     desc 'caveat', 'Not applicable for this CMS ARS 3.1 overlay, since the related security control is not applied to this system categorization in CMS ARS 3.1'
   end
 
