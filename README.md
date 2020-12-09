@@ -13,7 +13,16 @@ Git is required to download the latest InSpec profiles using the instructions be
 ## Tailoring to Your Environment
 The following inputs must be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
+### *Note* Windows and Linux InSpec Runner
+
+There are current issues with how the profiles run when using a windows or linux runner. We have accounted for this in the profile with the `windows_runner` input - which we *default* to `false` assuming a Linux based InSpec runner.
+
+If you are using a *Windows* based inspec installation, please set the `windows_runner` input to `true` either via your `inspec.yml` file or via the cli flag via, `--input windows_runner=true`
+
 ```
+# Windows or Linux Runner
+windows_runner: false
+
 # Description: 'Postgres OS user (e.g., 'postgres').'
 pg_owner: 'postgres'
 
