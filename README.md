@@ -23,17 +23,10 @@ If you are using a *Windows* based inspec installation, please set the `windows_
 ### Example Inputs You Can Use
 
 ```
-# Windows or Linux Runner
+# Windows or Linux Runner (default value = false)
 windows_runner: false
 
-# Description: 'Postgres OS user (e.g., 'postgres').'
-pg_owner: 'postgres'
 
-# Description: 'Postgres OS group (e.g., 'postgres').'
-pg_group: 'postgres'
-
-# Description: 'Postgres OS user password'
-pg_owner_password: ''
 
 # Description: 'Postgres database admin user (e.g., 'root').'
 pg_dba: 'root'
@@ -41,20 +34,28 @@ pg_dba: 'root'
 # Description: 'Postgres database admin password ('password').'
 pg_dba_password: 'password'
 
+# Description: 'Postgres database hostname'
+pg_host: ''
+
+# Description: 'Postgres database name ('test')'
+pg_db: 'test'
+
+# Description: 'Postgres database port'
+pg_port: '5432'
+
+
+
+# Description: 'Postgres super users (e.g., ['postgres']).'
+pg_superusers: []
+
+# Description: 'Postgres users'
+pg_users: []
+
 # Description: 'Postgres normal user'
 pg_user: ''
 
 # Description: 'Postgres normal user password'
 pg_user_password: ''
-
-# Description: 'Postgres database hostname'
-pg_host: ''
-
-# Description: 'Postgres database port'
-pg_port: '5432'
-
-# Description: 'Postgres database name ('test')'
-pg_db: 'test'
 
 # Description: 'Postgres database table name'
 pg_table: ''
@@ -65,41 +66,11 @@ login_user: ''
 # Description: 'Database host ip'
 login_host: ''
 
-# Description: 'Database version'
+# Description: 'Database version' (default 9.5)
 pg_version: '9.5'
-
-# Description: 'Data directory for database (e.g., '/var/lib/pgsql/9.5/data')'. 
-pg_data_dir: ''
-
-# Description: 'Configuration file for the database ('/var/lib/pgsql/9.5/data/postgresql.conf').'
-pg_conf_file: ''
-
-# Description: 'User defined configuration file for the database (e.g., '/var/lib/pgsql/9.5/data/stig-postgresql.conf')'.
-pg_user_defined_conf: ''
-
-# Description: 'Configuration file to enable client authentication (e.g., '/var/lib/pgsql/9.5/data/pg_hba.conf')'.
-pg_hba_conf_file: ''
-
-# Description: 'Configuration file that maps operating system usernames and database usernames (e.g., '/var/lib/pgsql/9.5/data/pg_ident.conf').'
-pg_ident_conf_file: ''
-
-# Description: 'List of shared directories (e.g., pg_shared_dirs: ['/usr/pgsql-9.5', '/usr/pgsql-9.5/bin', '/usr/pgsql-9.5/lib', '/usr/pgsql-9.5/share']).'
-pg_shared_dirs: []
-
-# Description: 'Database configuration mode (e.g., 0600)'
-pg_conf_mode: '0600'
 
 # Description: 'Postgres ssl setting (e.g., 'on').'
 pg_ssl: ''
-
-# Description: 'Postgres log destination (e.g., 'syslog').'
-pg_log_dest: ''
-
-# Description: 'Postgres syslog facility (e.g., ['local0']).'
-pg_syslog_facility: []
-
-# Description: 'Postgres syslog owner (e.g., 'postgres').'
-pg_syslog_owner: ''
 
 # Description: 'Postgres audit log items (e.g., ['ddl','role','read','write']).'
 pgaudit_log_items: []
@@ -107,20 +78,14 @@ pgaudit_log_items: []
 # Description: 'Postgres audit log line items (e.g. ['%m','%u','%c']).'
 pgaudit_log_line_items: []
 
-# Description: 'Postgres super users (e.g., ['postgres']).'
-pg_superusers: []
-
-# Description: 'Postgres users'
-pg_users: []
-
 # Description: 'Postgres replicas (e.g. ['192.168.1.3/32']).'
 pg_replicas: []
 
 # Description: 'Postgres max number of connections allowed (e.g., 100).'
-pg_max_connections: 0
+pg_max_connections: 100
 
 # Description: 'Postgres timezone (e.g., 'UTC').'
-pg_timezone: ''
+pg_timezone: 'UTC'
 ```
 
 ## Running This Overlay Directly from Github
