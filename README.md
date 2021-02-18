@@ -2,11 +2,71 @@
 InSpec profile overlay to validate the secure configuration of AWS RDS PostgreSQL 9 against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) PostgreSQL 9.x STIG Version 1 Release 1 tailored for [CMS ARS 3.1](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/InformationSecurity/Info-Security-Library-Items/ARS-31-Publication.html) for CMS systems categorized as Moderate.
 
 ## Getting Started
-It is intended and recommended that InSpec run this profile from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target.
+### InSpec (CINC-auditor) setup
+For maximum flexibility/accessibility, we’re moving to “cinc-auditor”, the open-source packaged binary version of Chef InSpec, compiled by the CINC (CINC Is Not Chef) project in coordination with Chef using Chef’s always-open-source InSpec source code. For more information: https://cinc.sh/
 
-__For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.__ 
+It is intended and recommended that CINC-auditor and this profile overlay be run from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target. This can be any Unix/Linux/MacOS or Windows runner host, with access to the Internet.
 
-The latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
+__For the best security of the runner, always install on the runner the _latest version_ of CINC-auditor.__ 
+
+__The simplest way to install CINC-auditor is to use this command for a UNIX/Linux/MacOS runner platform:__
+```
+curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor
+```
+
+__or this command for Windows runner platform (Powershell):__
+```
+. { iwr -useb https://omnitruck.cinc.sh/install.ps1 } | iex; install -project cinc-auditor
+```
+To confirm successful install of cinc-auditor:
+```
+cinc-auditor -v
+```
+> sample output:  _4.24.32_
+
+Latest versions and other installation options are available at https://cinc.sh/start/auditor/.
+
+### PSQL client setup
+
+To run the PostgreSQL profile against an AWS RDS Instance, CINC-auditor expects the psql client to be readily available on the same runner system it is installed on.
+ 
+For example, to install the psql client on a Linux runner host:
+```
+sudo yum install postgresql
+```
+To confirm successful install of psql:
+```
+which psql
+```
+> sample output:  _/usr/bin/psql_
+```
+psql –-version
+```		
+> sample output:  *psql (PostgreSQL) 9.2.24*
+
+Test psql connectivity to your instance from your runner host:
+```
+psql -d postgresql://<master user>:<password>@<endpoint>.amazonaws.com/postgres
+```		
+> *sample output:*
+> 
+>  *psql (9.2.24, server 9.6.15)*
+>  
+>  *WARNING: psql version 9.2, server version 9.6.*
+>  
+>  *SSL connection (cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256)*
+>  
+>  *Type "help" for help.*
+>  
+>  *postgres-> \conninfo*
+>  
+>  *You are connected to database "postgres" as user "postgres" on host "(endpoint).us-east-1.rds.amazonaws.com" at port "5432".*
+>  
+>  *postgres=> \q*
+>  
+>  *$*
+
+For installation of psql client on other operating systems for your runner host, visit https://www.postgresql.org/
 
 ## Inputs: Tailoring your scan to Your Environment
 
