@@ -86,28 +86,32 @@ windows_runner: false
 
 
 
-# Description: 'Postgres database admin user (e.g., 'root').'
-pg_dba: 'root'
+# Description: 'Postgres database admin user (e.g., 'postgres').'
+pg_dba: '<master user, e.g., postgres>'
 
-# Description: 'Postgres database admin password ('password').'
-pg_dba_password: 'password'
+# Description: 'Postgres database admin password (e.g., 'tesT$4329uyskdj!kjh').'
+pg_dba_password: '<password>'
 
 # Description: 'Postgres database hostname'
-pg_host: ''
+pg_host: '<endpoint>.amazonaws.com'
 
-# Description: 'Postgres database name ('test')'
-pg_db: 'test'
+# Description: 'Postgres database name (e.g., 'postgres')'
+pg_db: '<database name>'
 
 # Description: 'Postgres database port'
 pg_port: '5432'
 
+# Description: 'Postgres users e.g., ["pg_signal_backend", "postgres", "rds_iam", "rds_pgaudit", "rds_replication", "rds_superuser", "rdsadmin", "rdsrepladmin"]'
+pg_users: ["pg_signal_backend", "postgres", "rds_iam", "rds_pgaudit", "rds_replication", "rds_superuser", "rdsadmin", "rdsrepladmin"]
 
+# Description: 'V-73007, V-73009 uses this list of approved database extensions'
+approved_ext: ["pgaudit"]
+
+# Description: 'V-73011 uses this list of approved postgres-related packages (e.g., postgresql-server.x86_64, postgresql-odbc.x86_64)'
+approved_packages: []
 
 # Description: 'Postgres super users (e.g., ['postgres']).'
 pg_superusers: []
-
-# Description: 'Postgres users'
-pg_users: []
 
 # Description: 'Postgres normal user'
 pg_user: ''
@@ -150,7 +154,7 @@ pg_timezone: 'UTC'
 
 ```
 # How to run
-inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/archive/master.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor exec https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/archive/master.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ### Different Run Options
@@ -169,8 +173,8 @@ When the __"runner"__ host uses this profile overlay for the first time, follow 
 mkdir profiles
 cd profiles
 git clone https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay.git
-inspec archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
-inspec exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
+cinc-auditor exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:
@@ -179,8 +183,8 @@ For every successive run, follow these steps to always have the latest version o
 cd cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
 git pull
 cd ..
-inspec archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --overwrite
-inspec exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --overwrite
+cinc-auditor exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ## Using Heimdall for Viewing the JSON Results
