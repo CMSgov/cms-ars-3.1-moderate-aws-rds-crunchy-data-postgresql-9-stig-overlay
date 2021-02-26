@@ -68,30 +68,29 @@ psql -d postgresql://<master user>:<password>@<endpoint>.amazonaws.com/postgres
 
 For installation of psql client on other operating systems for your runner host, visit https://www.postgresql.org/
 
-## Tailoring to Your Environment
+## Inputs: Tailoring your scan to Your Environment
+
 The following inputs must be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
 
+#### *Note* Windows and Linux InSpec Runner
+
+There are current issues with how the profiles run when using a windows or linux runner. We have accounted for this in the profile with the `windows_runner` input - which we *default* to `false` assuming a Linux based InSpec runner.
+
+If you are using a *Windows* based inspec installation, please set the `windows_runner` input to `true` either via your `inspec.yml` file or via the cli flag via, `--input windows_runner=true`
+
+### Example Inputs You Can Use
+
 ```
-# Description: 'Postgres OS user (e.g., 'postgres').'
-pg_owner: 'postgres'
+# Windows or Linux Runner (default value = false)
+windows_runner: false
 
-# Description: 'Postgres OS group (e.g., 'postgres').'
-pg_group: 'postgres'
 
-# Description: 'Postgres OS user password'
-pg_owner_password: ''
 
 # Description: 'Postgres database admin user (e.g., 'postgres').'
 pg_dba: '<master user, e.g., postgres>'
 
 # Description: 'Postgres database admin password (e.g., 'tesT$4329uyskdj!kjh').'
 pg_dba_password: '<password>'
-
-# Description: 'Postgres normal user'
-pg_user: ''
-
-# Description: 'Postgres normal user password'
-pg_user_password: ''
 
 # Description: 'Postgres database hostname'
 pg_host: '<endpoint>.amazonaws.com'
@@ -129,41 +128,11 @@ login_user: ''
 # Description: 'Database host ip'
 login_host: ''
 
-# Description: 'Database version'
+# Description: 'Database version' (default 9.5)
 pg_version: '9.5'
-
-# Description: 'Data directory for database (e.g., '/var/lib/pgsql/9.5/data')'. 
-pg_data_dir: ''
-
-# Description: 'Configuration file for the database ('/var/lib/pgsql/9.5/data/postgresql.conf').'
-pg_conf_file: ''
-
-# Description: 'User defined configuration file for the database (e.g., '/var/lib/pgsql/9.5/data/stig-postgresql.conf')'.
-pg_user_defined_conf: ''
-
-# Description: 'Configuration file to enable client authentication (e.g., '/var/lib/pgsql/9.5/data/pg_hba.conf')'.
-pg_hba_conf_file: ''
-
-# Description: 'Configuration file that maps operating system usernames and database usernames (e.g., '/var/lib/pgsql/9.5/data/pg_ident.conf').'
-pg_ident_conf_file: ''
-
-# Description: 'List of shared directories (e.g., pg_shared_dirs: ['/usr/pgsql-9.5', '/usr/pgsql-9.5/bin', '/usr/pgsql-9.5/lib', '/usr/pgsql-9.5/share']).'
-pg_shared_dirs: []
-
-# Description: 'Database configuration mode (e.g., 0600)'
-pg_conf_mode: '0600'
 
 # Description: 'Postgres ssl setting (e.g., 'on').'
 pg_ssl: ''
-
-# Description: 'Postgres log destination (e.g., 'syslog').'
-pg_log_dest: ''
-
-# Description: 'Postgres syslog facility (e.g., ['local0']).'
-pg_syslog_facility: []
-
-# Description: 'Postgres syslog owner (e.g., 'postgres').'
-pg_syslog_owner: ''
 
 # Description: 'Postgres audit log items (e.g., ['ddl','role','read','write']).'
 pgaudit_log_items: []
@@ -171,22 +140,15 @@ pgaudit_log_items: []
 # Description: 'Postgres audit log line items (e.g. ['%m','%u','%c']).'
 pgaudit_log_line_items: []
 
-# Description: 'Postgres super users (e.g., ['postgres']).'
-pg_superusers: []
-
-# Description: 'Postgres users'
-pg_users: []
-
 # Description: 'Postgres replicas (e.g. ['192.168.1.3/32']).'
 pg_replicas: []
 
 # Description: 'Postgres max number of connections allowed (e.g., 100).'
-pg_max_connections: 0
+pg_max_connections: 100
 
 # Description: 'Postgres timezone (e.g., 'UTC').'
-pg_timezone: ''
+pg_timezone: 'UTC'
 ```
-
 ## Running This Overlay Directly from Github
 
 ```
