@@ -2,11 +2,71 @@
 InSpec profile overlay to validate the secure configuration of AWS RDS PostgreSQL 9 against [DISA's](https://iase.disa.mil/stigs/Pages/index.aspx) PostgreSQL 9.x STIG Version 1 Release 1 tailored for [CMS ARS 3.1](https://www.cms.gov/Research-Statistics-Data-and-Systems/CMS-Information-Technology/InformationSecurity/Info-Security-Library-Items/ARS-31-Publication.html) for CMS systems categorized as Moderate.
 
 ## Getting Started
-It is intended and recommended that InSpec run this profile from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target.
+### InSpec (CINC-auditor) setup
+For maximum flexibility/accessibility, we’re moving to “cinc-auditor”, the open-source packaged binary version of Chef InSpec, compiled by the CINC (CINC Is Not Chef) project in coordination with Chef using Chef’s always-open-source InSpec source code. For more information: https://cinc.sh/
 
-__For the best security of the runner, always install on the runner the _latest version_ of InSpec and supporting Ruby language components.__ 
+It is intended and recommended that CINC-auditor and this profile overlay be run from a __"runner"__ host (such as a DevOps orchestration server, an administrative management system, or a developer's workstation/laptop) against the target. This can be any Unix/Linux/MacOS or Windows runner host, with access to the Internet.
 
-The latest versions and installation options are available at the [InSpec](http://inspec.io/) site.
+__For the best security of the runner, always install on the runner the _latest version_ of CINC-auditor.__ 
+
+__The simplest way to install CINC-auditor is to use this command for a UNIX/Linux/MacOS runner platform:__
+```
+curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor
+```
+
+__or this command for Windows runner platform (Powershell):__
+```
+. { iwr -useb https://omnitruck.cinc.sh/install.ps1 } | iex; install -project cinc-auditor
+```
+To confirm successful install of cinc-auditor:
+```
+cinc-auditor -v
+```
+> sample output:  _4.24.32_
+
+Latest versions and other installation options are available at https://cinc.sh/start/auditor/.
+
+### PSQL client setup
+
+To run the PostgreSQL profile against an AWS RDS Instance, CINC-auditor expects the psql client to be readily available on the same runner system it is installed on.
+ 
+For example, to install the psql client on a Linux runner host:
+```
+sudo yum install postgresql
+```
+To confirm successful install of psql:
+```
+which psql
+```
+> sample output:  _/usr/bin/psql_
+```
+psql –-version
+```		
+> sample output:  *psql (PostgreSQL) 9.2.24*
+
+Test psql connectivity to your instance from your runner host:
+```
+psql -d postgresql://<master user>:<password>@<endpoint>.amazonaws.com/postgres
+```		
+> *sample output:*
+> 
+>  *psql (9.2.24, server 9.6.15)*
+>  
+>  *WARNING: psql version 9.2, server version 9.6.*
+>  
+>  *SSL connection (cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256)*
+>  
+>  *Type "help" for help.*
+>  
+>  *postgres-> \conninfo*
+>  
+>  *You are connected to database "postgres" as user "postgres" on host "(endpoint).us-east-1.rds.amazonaws.com" at port "5432".*
+>  
+>  *postgres=> \q*
+>  
+>  *$*
+
+For installation of psql client on other operating systems for your runner host, visit https://www.postgresql.org/
 
 ## Tailoring to Your Environment
 The following inputs must be configured in an inputs ".yml" file for the profile to run correctly for your specific environment. More information about InSpec inputs can be found in the [InSpec Profile Documentation](https://www.inspec.io/docs/reference/profiles/).
@@ -21,11 +81,11 @@ pg_group: 'postgres'
 # Description: 'Postgres OS user password'
 pg_owner_password: ''
 
-# Description: 'Postgres database admin user (e.g., 'root').'
-pg_dba: 'root'
+# Description: 'Postgres database admin user (e.g., 'postgres').'
+pg_dba: '<master user, e.g., postgres>'
 
-# Description: 'Postgres database admin password ('password').'
-pg_dba_password: 'password'
+# Description: 'Postgres database admin password (e.g., 'tesT$4329uyskdj!kjh').'
+pg_dba_password: '<password>'
 
 # Description: 'Postgres normal user'
 pg_user: ''
@@ -34,13 +94,31 @@ pg_user: ''
 pg_user_password: ''
 
 # Description: 'Postgres database hostname'
-pg_host: ''
+pg_host: '<endpoint>.amazonaws.com'
+
+# Description: 'Postgres database name (e.g., 'postgres')'
+pg_db: '<database name>'
 
 # Description: 'Postgres database port'
 pg_port: '5432'
 
-# Description: 'Postgres database name ('test')'
-pg_db: 'test'
+# Description: 'Postgres users e.g., ["pg_signal_backend", "postgres", "rds_iam", "rds_pgaudit", "rds_replication", "rds_superuser", "rdsadmin", "rdsrepladmin"]'
+pg_users: ["pg_signal_backend", "postgres", "rds_iam", "rds_pgaudit", "rds_replication", "rds_superuser", "rdsadmin", "rdsrepladmin"]
+
+# Description: 'V-73007, V-73009 uses this list of approved database extensions'
+approved_ext: ["pgaudit"]
+
+# Description: 'V-73011 uses this list of approved postgres-related packages (e.g., postgresql-server.x86_64, postgresql-odbc.x86_64)'
+approved_packages: []
+
+# Description: 'Postgres super users (e.g., ['postgres']).'
+pg_superusers: []
+
+# Description: 'Postgres normal user'
+pg_user: ''
+
+# Description: 'Postgres normal user password'
+pg_user_password: ''
 
 # Description: 'Postgres database table name'
 pg_table: ''
@@ -113,7 +191,7 @@ pg_timezone: ''
 
 ```
 # How to run
-inspec exec https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/archive/master.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor exec https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/archive/master.tar.gz --input-file=<path_to_your_inputs_file/name_of_your_inputs_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ### Different Run Options
@@ -132,8 +210,8 @@ When the __"runner"__ host uses this profile overlay for the first time, follow 
 mkdir profiles
 cd profiles
 git clone https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay.git
-inspec archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
-inspec exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
+cinc-auditor exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 For every successive run, follow these steps to always have the latest version of this overlay and dependent profiles:
@@ -142,8 +220,8 @@ For every successive run, follow these steps to always have the latest version o
 cd cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay
 git pull
 cd ..
-inspec archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --overwrite
-inspec exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter=cli json:<path_to_your_output_file/name_of_your_output_file.json>
+cinc-auditor archive cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay --overwrite
+cinc-auditor exec <name of generated archive> --input-file <path_to_your_input_file/name_of_your_input_file.yml> --reporter json:<path_to_your_output_file/name_of_your_output_file.json>
 ```
 
 ## Using Heimdall for Viewing the JSON Results
