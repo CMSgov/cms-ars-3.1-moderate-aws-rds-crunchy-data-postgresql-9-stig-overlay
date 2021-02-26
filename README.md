@@ -149,7 +149,6 @@ pg_max_connections: 100
 # Description: 'Postgres timezone (e.g., 'UTC').'
 pg_timezone: 'UTC'
 ```
-
 ## Running This Overlay Directly from Github
 
 ```
@@ -199,6 +198,7 @@ The JSON InSpec results file may also be loaded into a __[full heimdall server](
 
 ## Special Thanks
 * Aaron Lippold - [aaronlippold](https://github.com/aaronlippold)
+* Shivani Karikar - [karikarshivani](https://github.com/karikarshivani)
 
 ## Contributing and Getting Help
 To report a bug or feature request, please open an [issue](https://github.com/CMSgov/cms-ars-3.1-moderate-aws-rds-crunchy-data-postgresql-9-stig-overlay/issues/new).
@@ -222,4 +222,5 @@ No other use other than that granted to the U. S. Government, or to those acting
 For further information, please contact The MITRE Corporation, Contracts Management Office, 7515 Colshire Drive, McLean, VA  22102-7539, (703) 983-6000.
 
 ### NOTICE 
+
 DISA STIGs are published by DISA IASE, see: https://iase.disa.mil/Pages/privacy_policy.aspx
